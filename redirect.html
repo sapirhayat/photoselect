@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>טוען...</title>
+  <script>
+    async function redirectToImageSelect() {
+      const queryString = window.location.search;
+      const params = new URLSearchParams(queryString);
+      const id = params.get("id"); // מזהה ייחודי ש-Make ייצר
+
+      if (!id) return alert("לא נמצא מזהה");
+
+      // קורא את הנתונים מדף JSON שנוצר ע״י מייק
+      const res = await fetch(`https://sapirhayat.github.io/photoselect/data/${id}.json`);
+      const data = await res.json();
+
+      const imageLinks = data.images.join(",");
+      const targetUrl = `https://sapirhayat.github.io/photoselect/?images=${encodeURIComponent(imageLinks)}`;
+
+      window.location.href = targetUrl;
+    }
+
+    redirectToImageSelect();
+  </script>
+</head>
+<body>
+  <p>טוען תמונות...</p>
+</body>
+</html>
